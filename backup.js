@@ -20,7 +20,6 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost:27017/postDB");
 
-//  ===================== mongoose schema =================================== //
 const postSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -32,22 +31,22 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-// ======================== mongoose model =================================== //
-
 const Post = new mongoose.model("Post", postSchema);
 
-let posts = []; // it's here just for few mins...
+// const post = new Post({
+//   title: "Testing 1",
+//   content:
+//     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa doloremque fugiat qui nostrum ipsa quam assumenda cupiditate ut pariatur. Dignissimos iste aliquam, rem recusandae harum vero voluptatem ad. Ab est quasi optio repudiandae sed beatae recusandae! Perferendis quasi quibusdam illum!",
+// });
+
+// post.save();
+
+let posts = [];
 
 app.get("/", function (req, res) {
-  Post.find({}, function (err, foundPosts) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("home", {
-        homeStartingContent: homeStartingContent,
-        posts: foundPosts,
-      });
-    }
+  res.render("home", {
+    homeStartingContent: homeStartingContent,
+    posts: posts,
   });
 });
 
@@ -64,8 +63,14 @@ app.get("/compose", function (req, res) {
 });
 
 app.post("/compose", function (req, res) {
-  const postTitle = req.body.postTitle;
-  const postContent = req.body.postContent;
+  let postTitle = req.body.postTitle;
+  let postContent = req.body.postContent;
+  // let post = {
+  //   title: postTitle,
+  //   content: postContent,
+  // };
+  // posts.push(post);
+
   const post = new Post({
     title: postTitle,
     content: postContent,
@@ -77,37 +82,19 @@ app.post("/compose", function (req, res) {
 app.get("/posts/:postName", function (req, res) {
   const requestedTopic = req.params.postName;
   const fixRequestedTopic = _.lowerCase(requestedTopic);
-  Post.find({}, function (err, foundPost) {
-    if (err) {
-      console.log(err);
+  posts.forEach(function (post) {
+    const storedTopic = post.title;
+    const fixStoredTopic = _.lowerCase(storedTopic);
+    if (fixRequestedTopic === fixStoredTopic) {
+      // console.log("MATCH FOUND!");
+      res.render("post", {
+        separatePostTitle: post.title,
+        separatePostContent: post.content,
+      });
     } else {
-      const storedTopic = foundPost.title;
-      const fixStoredTopic = _.lowerCase(storedTopic);
-      if (fixRequestedTopic === fixStoredTopic) {
-        // console.log("MATCH FOUND!");
-        res.render("post", {
-          separatePostTitle: foundPost.title,
-          separatePostContent: foundPost.content,
-        });
-      } else {
-        console.log("NO BLOGS ON THIS TOPIC :/ ");
-      }
+      console.log("NO BLOGS ON THIS TOPIC :/ ");
     }
   });
-
-  // posts.forEach(function (post) {
-  //   const storedTopic = post.title;
-  //   const fixStoredTopic = _.lowerCase(storedTopic);
-  //   if (fixRequestedTopic === fixStoredTopic) {
-  //     // console.log("MATCH FOUND!");
-  //     res.render("post", {
-  //       separatePostTitle: post.title,
-  //       separatePostContent: post.content,
-  //     });
-  //   } else {
-  //     console.log("NO BLOGS ON THIS TOPIC :/ ");
-  //   }
-  // });
 
   // console.log(req.params.postName);
 });
