@@ -1,39 +1,188 @@
-.container-fluid {
-  padding-top: 70px;
-  padding-bottom: 70px;
-}
-.navbar {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border: 0;
-  border-radius: 0;
-  margin-bottom: 0;
-  font-size: 12px;
-  letter-spacing: 5px;
-}
-.navbar-nav li a:hover {
-  color: #1abc9c !important;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.navbar-nav button {
-  margin-top: 7.5px !important;
+html {
+  -webkit-text-size-adjust: auto !important;
 }
 
-.footer-padding {
-  padding-bottom: 60px;
+/* ----------------  Navbar ------------------ */
+
+/* --------- Fonts --------- */
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
+
+/* --------- Variables --------- */
+
+:root {
+  --bg-header: linear-gradient(to right, #79f1a4, #0e5cad);
+  --color-header: #eeeeee;
+  --hover: linear-gradient(to right, #fee140, #fa709a);
 }
 
-.footer {
-  position: absolute;
+/* ---------  --------- */
+header {
+  background: var(--bg-header);
   text-align: center;
-  bottom: 0;
+  position: fixed;
   width: 100%;
-  height: 60px;
-  background-color: #1abc9c;
+  z-index: 999;
 }
 
-.footer p {
-  margin-top: 25px;
-  font-size: 12px;
-  color: #fff;
+.logo {
+  font-size: 35px;
+  font-family: "Montserrat", sans-serif;
+  color: var(--color-header);
+}
+
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 1em;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  background: var(--color-header);
+  height: 2px;
+  width: 2em;
+  border-radius: 2px;
+  position: relative;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: "";
+  position: absolute;
+}
+
+.nav-toggle-label span::before {
+  bottom: 7px;
+}
+
+.nav-toggle-label span::after {
+  top: 7px;
+}
+
+nav {
+  position: absolute;
+  text-align: left;
+  top: 100%;
+  left: 0;
+  background: var(--bg-header);
+  width: 100%;
+  transform: scale(1, 0);
+  transform-origin: top;
+  transition: transform 400ms ease-in-out;
+}
+
+navbar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+navbar li {
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+navbar a {
+  color: var(--color-header);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+.nav-toggle:checked ~ nav {
+  transform: scale(1, 1);
+}
+
+.nav-toggle:checked ~ nav a {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out 250ms;
+}
+
+@media screen and (min-width: 768px) {
+  .nav-toggle-label {
+    display: none;
+  }
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+  }
+
+  .logo {
+    grid-column: 2 / 3;
+  }
+
+  navbar {
+    all: unset; /* Elimina todos los estilos */
+    grid-column: 3 / 4;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  navbar ul {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  navbar li {
+    margin-left: 1.5em;
+    margin-bottom: 0;
+  }
+
+  navbar a {
+    opacity: 1;
+    position: relative;
+  }
+
+  navbar a::before {
+    content: "";
+    display: block;
+    height: 5px;
+    background: var(--hover);
+    position: absolute;
+    top: -0.75em;
+    left: 0;
+    right: 0;
+    transform: scale(0, 1);
+    transition: transform ease-in-out 250ms;
+  }
+
+  navbar a:hover::before {
+    transform: scale(1, 1);
+  }
+}
+
+/* --------- Fin Barra de navegación --------- */
+
+/* --------------- Home Page---------------- */
+
+.post {
+  border: 2px solid red;
+}
+
+.post-title {
+}
+
+.post-content {
+  border: 2px solid black;
 }
