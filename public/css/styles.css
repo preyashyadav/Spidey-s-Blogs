@@ -3,11 +3,6 @@
   margin: 0;
   padding: 0;
 }
-
-html {
-  -webkit-text-size-adjust: auto !important;
-}
-
 /* ----------------  Navbar ------------------ */
 
 .glassmorphism-bg {
@@ -114,17 +109,4 @@ html {
   --bg-header: linear-gradient(to right, #79f1a4, #0e5cad);
   --color-header: #eeeeee;
   --hover: linear-gradient(to right, #fee140, #fa709a);
-}
-
-/* --------------- Home Page---------------- */
-
-.post {
-  border: 2px solid red;
-}
-
-.post-title {
-}
-
-.post-content {
-  border: 2px solid black;
 }
