@@ -3,6 +3,18 @@
   margin: 0;
   padding: 0;
 }
+
+/* --------- Fonts --------- */
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
+
+/* --------- Variables --------- */
+
+:root {
+  --bg-header: linear-gradient(to right, #79f1a4, #0e5cad);
+  --color-header: #eeeeee;
+  --hover: linear-gradient(to right, #fee140, #fa709a);
+}
+
 /* ----------------  Navbar ------------------ */
 
 .glassmorphism-bg {
@@ -100,13 +112,60 @@
   background-color: #777777;
 }
 
-/* --------- Fonts --------- */
-@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
+/* ------body----------- */
 
-/* --------- Variables --------- */
+body {
+  background: #d66d75; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #e29587,
+    #d66d75
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #e29587,
+    #d66d75
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
-:root {
-  --bg-header: linear-gradient(to right, #79f1a4, #0e5cad);
-  --color-header: #eeeeee;
-  --hover: linear-gradient(to right, #fee140, #fa709a);
+/* -----------------home starting content-------------- */
+.home-content {
+  /* border: 2px solid green; */
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.home-starting-content {
+  /* border: 2px solid greenyellow; */
+  height: 50vh;
+}
+
+/* --------------post------------------ */
+
+.section-me {
+  /* border: solid 2px white; */
+}
+
+.post {
+  /* border: 2px solid black; */
+  border-radius: 20px;
+  margin: 20px;
+  padding: 20px;
+  /* width: 320px; */
+}
+
+.post-title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.post-content {
+  font-size: 1rem;
+}
+
+/* ---------footer-------------- */
+.footer {
+  text-align: center;
 }

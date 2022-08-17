@@ -95,21 +95,20 @@ app.get("/posts/:postName", function (req, res) {
     }
   });
 
-  // posts.forEach(function (post) {
-  //   const storedTopic = post.title;
-  //   const fixStoredTopic = _.lowerCase(storedTopic);
-  //   if (fixRequestedTopic === fixStoredTopic) {
-  //     // console.log("MATCH FOUND!");
-  //     res.render("post", {
-  //       separatePostTitle: post.title,
-  //       separatePostContent: post.content,
-  //     });
-  //   } else {
-  //     console.log("NO BLOGS ON THIS TOPIC :/ ");
-  //   }
-  // });
-
-  // console.log(req.params.postName);
+  posts.forEach(function (post) {
+    const storedTopic = post.title;
+    const fixStoredTopic = _.lowerCase(storedTopic);
+    if (fixRequestedTopic === fixStoredTopic) {
+      // console.log("MATCH FOUND!");
+      res.render("post", {
+        separatePostTitle: post.title,
+        separatePostContent: post.content,
+      });
+    } else {
+      console.log("NO BLOGS ON THIS TOPIC :/ ");
+    }
+  });
+  console.log(req.params.postName);
 });
 
 app.listen(3000, function () {
