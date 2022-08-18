@@ -18,7 +18,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/postDB");
+mongoose.connect("mongodb://localhost:27017/post2DB");
 
 //  ===================== mongoose schema =================================== //
 const postSchema = new mongoose.Schema({
@@ -78,13 +78,14 @@ app.get("/posts/:postName", function (req, res) {
   const requestedTopic = req.params.postName;
   const fixRequestedTopic = _.lowerCase(requestedTopic);
   Post.find({}, function (err, foundPost) {
+    console.log(fixRequestedTopic);
     if (err) {
       console.log(err);
     } else {
       const storedTopic = foundPost.title;
       const fixStoredTopic = _.lowerCase(storedTopic);
-      if (fixRequestedTopic === fixStoredTopic) {
-        // console.log("MATCH FOUND!");
+      if (fixStoredTopic.localeCompare(fixRequestedTopic)) {
+        console.log("MATCH FOUND!");
         res.render("post", {
           separatePostTitle: foundPost.title,
           separatePostContent: foundPost.content,
@@ -94,21 +95,6 @@ app.get("/posts/:postName", function (req, res) {
       }
     }
   });
-
-  // posts.forEach(function (post) {
-  //   const storedTopic = post.title;
-  //   const fixStoredTopic = _.lowerCase(storedTopic);
-  //   if (fixRequestedTopic === fixStoredTopic) {
-  //     // console.log("MATCH FOUND!");
-  //     res.render("post", {
-  //       separatePostTitle: post.title,
-  //       separatePostContent: post.content,
-  //     });
-  //   } else {
-  //     console.log("NO BLOGS ON THIS TOPIC :/ ");
-  //   }
-  // });
-
   // console.log(req.params.postName);
 });
 
