@@ -141,10 +141,17 @@ body {
   height: 50vh;
 }
 
+.all-blogs {
+  font-size: 1.5rem;
+  color: white;
+}
+
 /* --------------post------------------ */
 
 .section-me {
   /* border: solid 2px white; */
+  display: flex;
+  justify-content: center;
 }
 
 .post {
@@ -163,6 +170,17 @@ body {
 
 .post-content {
   font-size: 1rem;
+}
+
+/* ----------post-bg----------- */
+
+.post-bg {
+  height: 100vh;
+  width: 100vw;
+}
+
+.post-z {
+  z-index: 100;
 }
 
 /* ---------footer-------------- */

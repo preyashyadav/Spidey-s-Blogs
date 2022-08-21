@@ -74,28 +74,39 @@ app.post("/compose", function (req, res) {
   res.redirect("/");
 });
 
-app.get("/posts/:postName", function (req, res) {
-  const requestedTopic = req.params.postName;
-  const fixRequestedTopic = _.lowerCase(requestedTopic);
-  Post.find({}, function (err, foundPost) {
-    console.log(fixRequestedTopic);
-    if (err) {
-      console.log(err);
-    } else {
-      const storedTopic = foundPost.title;
-      const fixStoredTopic = _.lowerCase(storedTopic);
-      if (fixStoredTopic.localeCompare(fixRequestedTopic)) {
-        console.log("MATCH FOUND!");
-        res.render("post", {
-          separatePostTitle: foundPost.title,
-          separatePostContent: foundPost.content,
-        });
-      } else {
-        console.log("NO BLOGS ON THIS TOPIC :/ ");
-      }
-    }
+// app.get("/posts/:postName", function (req, res) {
+//   const requestedTopic = req.params.postName;
+//   const fixRequestedTopic = _.lowerCase(requestedTopic);
+//   Post.find({}, function (err, foundPost) {
+//     // console.log(fixRequestedTopic);
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       const storedTopic = foundPost.title;
+//       const fixStoredTopic = _.lowerCase(storedTopic);
+//       if (fixStoredTopic.localeCompare(fixRequestedTopic)) {
+//         // console.log("MATCH FOUND!");
+//         res.render("post", {
+//           separatePostTitle: foundPost.title,
+//           separatePostContent: foundPost.content,
+//         });
+//       } else {
+//         console.log("NO BLOGS ON THIS TOPIC :/ ");
+//       }
+//     }
+//   });
+//   // console.log(req.params.postName);
+// });
+
+app.get("/posts/:postId", function (req, res) {
+  const requestedPostId = req.params.postId;
+
+  Post.findOne({ _id: requestedPostId }, function (err, post) {
+    res.render("post", {
+      title: post.title,
+      content: post.content,
+    });
   });
-  // console.log(req.params.postName);
 });
 
 app.listen(3000, function () {
