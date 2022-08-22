@@ -18,25 +18,17 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/post2DB");
+mongoose.connect("mongodb://localhost:27017/bloggingDB");
 
 //  ===================== mongoose schema =================================== //
 const postSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    require: [true, "Enter a blog title"],
-  },
-  content: {
-    type: String,
-    require: [true, "No content for the blog is provided"],
-  },
+  title: String,
+  content: String,
 });
 
 // ======================== mongoose model =================================== //
 
 const Post = new mongoose.model("Post", postSchema);
-
-let posts = []; // it's here just for few mins...
 
 app.get("/", function (req, res) {
   Post.find({}, function (err, foundPosts) {
@@ -74,28 +66,15 @@ app.post("/compose", function (req, res) {
   res.redirect("/");
 });
 
-app.get("/posts/:postName", function (req, res) {
-  const requestedTopic = req.params.postName;
-  const fixRequestedTopic = _.lowerCase(requestedTopic);
-  Post.find({}, function (err, foundPost) {
-    console.log(fixRequestedTopic);
-    if (err) {
-      console.log(err);
-    } else {
-      const storedTopic = foundPost.title;
-      const fixStoredTopic = _.lowerCase(storedTopic);
-      if (fixStoredTopic.localeCompare(fixRequestedTopic)) {
-        console.log("MATCH FOUND!");
-        res.render("post", {
-          separatePostTitle: foundPost.title,
-          separatePostContent: foundPost.content,
-        });
-      } else {
-        console.log("NO BLOGS ON THIS TOPIC :/ ");
-      }
-    }
+app.get("/posts/:postId", function (req, res) {
+  const requestedPostId = req.params.postId;
+
+  Post.findOne({ _id: requestedPostId }, function (err, post) {
+    res.render("post", {
+      title: post.title,
+      content: post.content,
+    });
   });
-  // console.log(req.params.postName);
 });
 
 app.listen(3000, function () {
