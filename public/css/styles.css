@@ -183,6 +183,12 @@ body {
   z-index: 100;
 }
 
+/* ----------about page---------- */
+.bg-full {
+  width: 100vw;
+  height: 100vh;
+}
+
 /* ---------footer-------------- */
 .footer {
   text-align: center;
